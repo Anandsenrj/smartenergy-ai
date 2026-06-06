@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartEnergy AI — SDG 7 Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon"><i class="ti ti-bolt"></i></div>
+        <div>
+          <div class="brand-name">SmartEnergy AI</div>
+          <div class="brand-sub">SDG 7 · Energy Forecasting + Carbon Footprint Advisor</div>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-green"><i class="ti ti-circle-check"></i> Live Demo</span>
+        <span class="badge badge-blue">SDG 7 + SDG 13</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Metric Cards -->
+    <div class="metrics" id="metrics">
+      <div class="metric">
+        <div class="metric-label"><i class="ti ti-bolt"></i> Weekly Usage</div>
+        <div class="metric-val" id="m-kwh">1,960</div>
+        <div class="metric-sub">kWh consumed</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label"><i class="ti ti-cloud"></i> CO₂ This Week</div>
+        <div class="metric-val up" id="m-co2">1,607</div>
+        <div class="metric-sub">kg CO₂ emitted</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label"><i class="ti ti-currency-rupee"></i> Est. Bill</div>
+        <div class="metric-val" id="m-cost">₹15,680</div>
+        <div class="metric-sub">this month (projected)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label"><i class="ti ti-leaf"></i> Savings Potential</div>
+        <div class="metric-val down" id="m-save">₹3,920</div>
+        <div class="metric-sub">with AI guidance</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="forecast"><i class="ti ti-chart-line"></i> Forecast</button>
+      <button class="tab" data-tab="carbon"><i class="ti ti-plant-2"></i> Carbon Tracker</button>
+      <button class="tab" data-tab="advisor"><i class="ti ti-robot"></i> AI Advisor</button>
+      <button class="tab" data-tab="recommend"><i class="ti ti-bulb"></i> Recommendations</button>
+    </div>
+
+    <!-- PANEL: Forecast -->
+    <div class="panel active" id="panel-forecast">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Building Type</label>
+          <select id="btype">
+            <option value="sme">Small Business (SME)</option>
+            <option value="campus">College Campus</option>
+            <option value="hospital">Hospital / Clinic</option>
+            <option value="factory">Factory / Manufacturing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Location / Climate Zone</label>
+          <select id="climate">
+            <option value="tropical">Tropical (e.g. Varanasi, Mumbai)</option>
+            <option value="arid">Arid (e.g. Rajasthan, Gujarat)</option>
+            <option value="temperate">Temperate (e.g. Delhi, Pune)</option>
+            <option value="cool">Cool (e.g. Shimla, Darjeeling)</option>
+          </select>
+        </div>
+      </div>
+      <div class="slider-row">
+        <label><i class="ti ti-building"></i> Floor area (sq ft)</label>
+        <input type="range" min="500" max="20000" step="500" value="5000" id="area">
+        <span class="val" id="area-out">5,000 sq ft</span>
+      </div>
+      <div class="slider-row">
+        <label><i class="ti ti-users"></i> No. of occupants</label>
+        <input type="range" min="5" max="500" step="5" value="50" id="occ">
+        <span class="val" id="occ-out">50</span>
+      </div>
+      <div class="slider-row">
+        <label><i class="ti ti-device-laptop"></i> IT equipment (units)</label>
+        <input type="range" min="0" max="200" step="5" value="30" id="it">
+        <span class="val" id="it-out">30 units</span>
+      </div>
+
+      <div class="result-box">
+        <div class="result-title">7-Day Energy Forecast (IBM Granite AI Prediction)</div>
+        <div class="bars" id="forecast-bars"></div>
+        <div class="forecast-meta">
+          <div><span class="section-label">Peak Day</span><br><span class="meta-val" id="peak-day">Thursday</span></div>
+          <div><span class="section-label">Avg Daily</span><br><span class="meta-val" id="avg-daily">280 kWh</span></div>
+          <div><span class="section-label">Off-Peak Window</span><br><span class="meta-val green">10 PM – 6 AM</span></div>
+          <div><span class="section-label">Efficiency Rating</span><br><span class="badge badge-amber" id="eff-badge">B – Moderate</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: Carbon -->
+    <div class="panel" id="panel-carbon">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Monthly Energy (kWh)</label>
+          <input type="number" id="kwh-in" value="1960" min="0" max="50000">
+        </div>
+        <div class="form-group">
+          <label>Energy Source Mix</label>
+          <select id="source">
+            <option value="grid">Grid Only (0.82 kg CO₂/kWh)</option>
+            <option value="mix50">50% Solar + 50% Grid</option>
+            <option value="mix80">80% Solar + 20% Grid</option>
+            <option value="solar">100% Solar (0.04 kg CO₂/kWh)</option>
+          </select>
+        </div>
+      </div>
+      <div class="slider-row">
+        <label><i class="ti ti-solar-panel-2"></i> Solar panel capacity (kW)</label>
+        <input type="range" min="0" max="50" step="1" value="0" id="solar-kw">
+        <span class="val" id="solar-out">0 kW</span>
+      </div>
+
+      <div class="carbon-grid">
+        <div class="result-box">
+          <div class="result-title">Current CO₂ Footprint</div>
+          <div class="co2-big" id="co2-now">1,607</div>
+          <div class="co2-unit">kg CO₂ / month</div>
+          <div class="co2-equiv" id="co2-equiv">= 6 flights Delhi→Mumbai</div>
+        </div>
+        <div class="result-box">
+          <div class="result-title">With Solar Installed</div>
+          <div class="green-big" id="co2-solar">1,607</div>
+          <div class="co2-unit">kg CO₂ / month</div>
+          <div class="green-note" id="co2-saving">No solar added yet</div>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <div class="result-title">Carbon breakdown by source</div>
+        <div id="carbon-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- PANEL: Advisor -->
+    <div class="panel" id="panel-advisor">
+      <div class="section-label">Quick questions</div>
+      <div class="quick-prompts">
+        <button class="qp" data-q="What if I add 10kW of solar panels?">What if I add 10kW solar?</button>
+        <button class="qp" data-q="How can I reduce my carbon footprint by 30%?">Reduce CO₂ by 30%</button>
+        <button class="qp" data-q="What are peak energy hours I should avoid?">Peak hours to avoid?</button>
+        <button class="qp" data-q="What government subsidies exist for solar in India?">Solar subsidies India</button>
+        <button class="qp" data-q="How does my consumption compare to similar businesses?">Benchmark my usage</button>
+        <button class="qp" data-q="Generate my monthly sustainability report">Monthly report</button>
+      </div>
+      <div class="chat-area" id="chat-area"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Ask about energy, costs, carbon, or clean energy options...">
+        <button id="chat-send"><i class="ti ti-send"></i> Send</button>
+      </div>
+      <div class="chat-note"><i class="ti ti-info-circle"></i> Powered by IBM Granite LLM + RAG on clean energy policy database</div>
+    </div>
+
+    <!-- PANEL: Recommendations -->
+    <div class="panel" id="panel-recommend">
+      <div class="section-label">AI-generated action plan</div>
+      <div class="rec-grid" id="rec-grid"></div>
+      <hr class="divider">
+      <div class="section-label">Net-zero roadmap</div>
+      <div id="roadmap"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>SmartEnergy AI &mdash; 1M1B AI for Sustainability Virtual Internship &nbsp;·&nbsp; IBM SkillsBuild &amp; AICTE &nbsp;·&nbsp; SDG 7 + SDG 13</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
